@@ -1,21 +1,21 @@
 package db
 
 import (
-    "log"
+	"log"
 
-    "github.com/PolunLin/go-gin-api/common/models"
-    "gorm.io/driver/postgres"
-    "gorm.io/gorm"
+	"github.com/PolunLin/go-gin-api/pkg/common/models"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func Init(url string) *gorm.DB {
-    db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
 
-    if err != nil {
-        log.Fatalln(err)
-    }
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-    db.AutoMigrate(&models.Book{})
+	db.AutoMigrate(&models.Book{})
 
-    return db
+	return db
 }
