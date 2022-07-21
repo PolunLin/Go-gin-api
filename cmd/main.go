@@ -1,30 +1,24 @@
 package main
-// Initializing Viper to handle our environment variables
-// Initializing the database based on GORM
-// Adding a simple “/” route
-// Starting the application
+
 import (
-    "github.com/gin-gonic/gin"
-    "github.com/PolunLin/go-gin-api/pkg/common/db"
-    "github.com/spf13/viper"
-)  
+	"github.com/PolunLin/go-gin-api/pkg/books"
+	"github.com/PolunLin/go-gin-api/pkg/common/db"
+	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
+)
 
 func main() {
-    viper.SetConfigFile("./pkg/common/envs/.env")
-    viper.ReadInConfig()
+	viper.SetConfigFile("./pkg/common/envs/.env")
+	viper.ReadInConfig()
 
-    port := viper.Get("PORT").(string)
-    dbUrl := viper.Get("DB_URL").(string)
+	port := viper.Get("PORT").(string)
+	dbUrl := viper.Get("DB_URL").(string)
 
-    r := gin.Default()
-    db.Init(dbUrl)
+	r := gin.Default()
+	h := db.Init(dbUrl)
 
-    r.GET("/", func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "port": port,
-            "dbUrl": dbUrl,
-        })
-    })
+	books.RegisterRoutes(r, h)
+	// register more routes here
 
-    r.Run(port)
+	r.Run(port)
 }
