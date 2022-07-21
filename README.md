@@ -43,7 +43,7 @@
 
 ## Repository Struct
 
-    ```
+```bash
     tree /f
     go-gin-api
     │  go.mod
@@ -75,13 +75,13 @@
             │
             └─models
                     book.go
-    ```
+```
 
 ## Run the application
-    ```bash
+```bash
     make server # or 
     go run cmd/main.go
-    ```
+```
 ## Result
 1. POST:add a new Book
     ```bash
